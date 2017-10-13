@@ -53,6 +53,23 @@ describe 'Tree' do
     expect { @tree.pick_an_apple! }.to raise_error NoApplesError
   end
 
+  it 'should die after 65 years' do
+    65.times do
+      @tree.age!
+    end
+
+    expect(@tree.dead?).to be_truthy
+  end
+
+  it 'should not grow any more after it dies' do
+    65.times do
+      @tree.age!
+    end
+    originalHeight = @tree.height
+    @tree.age!
+    expect(@tree.height).to eq originalHeight
+  end
+
 end
 
 describe 'Fruit' do

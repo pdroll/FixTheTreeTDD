@@ -7,14 +7,15 @@ class Tree
     @height = 0
     @age = 0
     @apples = []
-    @alive = true
     @appleColor = [:red, :green, :yellow].sample
   end
 
   def age!
-    self.age += 1
-    self.height += 1 + Random.rand(30)
-    self.add_apples
+    unless self.dead?
+      self.age += 1
+      self.height += 1 + Random.rand(1.5)
+      self.add_apples
+    end
   end
 
   def add_apples
@@ -35,7 +36,7 @@ class Tree
   end
 
   def dead?
-
+    self.age >= 65
   end
 end
 
