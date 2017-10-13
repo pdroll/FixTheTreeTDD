@@ -2,6 +2,9 @@ require 'rspec'
 require 'tree'
 
 describe 'Tree' do
+  # it 'should be a Class' do
+  #   expect(Tree.is_a? Class).to be_true
+  # end
   it 'should have 0 height when new' do
     tree = Tree.new
     expect(tree.height).to eq 0
@@ -23,6 +26,12 @@ describe 'Tree' do
     expect(tree.age).to eq 1
   end
 
+  it 'should have more apples after adding apples' do
+    tree = Tree.new
+    originalCount = tree.apples.count
+    tree.add_apples
+    expect(tree.apples.count).to be > originalCount
+  end
 
 end
 

@@ -8,6 +8,8 @@ class Tree
     @age = 0
     @apples = []
     @alive = true
+
+    @appleColor = [:red, :green, :yellow].sample
   end
 
   def age!
@@ -16,6 +18,11 @@ class Tree
   end
 
   def add_apples
+      num =  1 + Random.rand(99)
+      num.times do
+        diameter = 1 + Random.rand(10)
+        @apples.push Apple.new(@appleColor, diameter)
+      end
   end
 
   def any_apples?
@@ -38,9 +45,12 @@ class Fruit
 end
 
 class Apple < Fruit
-  attr_reader :seeds
+  attr_reader :seeds, :color, :diameter
 
   def initialize(color, diameter)
+      @color = color
+      @diameter = diameter
+      @seeds = 1 + Random.rand(12)
   end
 end
 
