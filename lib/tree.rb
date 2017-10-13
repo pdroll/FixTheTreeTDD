@@ -94,5 +94,7 @@ def tree_data
   puts "Alas, the tree, she is dead!"
 end
 
-# Uncomment this line to run the script, but BE SURE to comment it before you try to run your tests!
-# tree_data
+# Run the program only if this file is being called directly
+if File.basename($PROGRAM_NAME) == File.basename(__FILE__)
+  tree_data
+end
