@@ -16,9 +16,16 @@ describe 'Tree' do
     expect(@tree.apples.count).to eq 0
   end
 
-  it 'should should increase age by one year when aging' do
+  it 'should increase age by one year when aging' do
     @tree.age!
     expect(@tree.age).to eq 1
+  end
+
+  it 'should increase in height when aging' do
+    @tree.age!
+    originalHeight = @tree.height
+    @tree.age!
+    expect(@tree.height).to be > originalHeight
   end
 
   it 'should have more apples after adding apples' do
@@ -27,14 +34,14 @@ describe 'Tree' do
     expect(@tree.apples.count).to be > originalCount
   end
 
-  it 'returns an apple when pick_an_apple!' do
+  it 'should return an apple when picking an apple' do
     @tree.add_apples
     appleColors = [:red, :green, :yellow]
     picked = @tree.pick_an_apple!
     expect(appleColors.include? picked.color).to be_truthy
   end
 
-  it 'has one less apple after picking an apple' do
+  it 'should have one less apple after picking an apple' do
     @tree.add_apples
     originalCount = @tree.apples.count
     @tree.pick_an_apple!
@@ -42,7 +49,7 @@ describe 'Tree' do
     expect(@tree.apples.count).to eq originalCount - 1
   end
 
-  it 'raises an error when picking an apple when there are no apples' do
+  it 'should raise an error when picking an apple when there are no apples' do
     expect { @tree.pick_an_apple! }.to raise_error NoApplesError
   end
 

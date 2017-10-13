@@ -1,19 +1,19 @@
 class NoApplesError < StandardError; end
 
 class Tree
-  attr_reader :height, :age, :apples
+  attr_accessor :height, :age, :apples, :appleColor
 
   def initialize
     @height = 0
     @age = 0
     @apples = []
     @alive = true
-
     @appleColor = [:red, :green, :yellow].sample
   end
 
   def age!
-    @age += 1
+    self.age += 1
+    self.height += 1 + Random.rand(30)
     self.add_apples
   end
 
@@ -21,17 +21,17 @@ class Tree
       num =  1 + Random.rand(99)
       num.times do
         diameter = 1 + Random.rand(10)
-        @apples.push Apple.new(@appleColor, diameter)
+        self.apples.push Apple.new(self.appleColor, diameter)
       end
   end
 
   def any_apples?
-    @apples.count > 0
+    self.apples.count > 0
   end
 
   def pick_an_apple!
     raise NoApplesError, "This tree has no apples" unless self.any_apples?
-    @apples.pop
+    self.apples.pop
   end
 
   def dead?
