@@ -2,35 +2,48 @@ require 'rspec'
 require 'tree'
 
 describe 'Tree' do
-  # it 'should be a Class' do
-  #   expect(Tree.is_a? Class).to be_true
-  # end
+  before { @tree = Tree.new }
+
   it 'should have 0 height when new' do
-    tree = Tree.new
-    expect(tree.height).to eq 0
+    expect(@tree.height).to eq 0
   end
 
   it 'should have 0 age when new' do
-    tree = Tree.new
-    expect(tree.age).to eq 0
+    expect(@tree.age).to eq 0
   end
 
   it 'should have 0 apples when new' do
-    tree = Tree.new
-    expect(tree.apples.count).to eq 0
+    expect(@tree.apples.count).to eq 0
   end
 
   it 'should should increase age by one year when aging' do
-    tree = Tree.new
-    tree.age!
-    expect(tree.age).to eq 1
+    @tree.age!
+    expect(@tree.age).to eq 1
   end
 
   it 'should have more apples after adding apples' do
-    tree = Tree.new
-    originalCount = tree.apples.count
-    tree.add_apples
-    expect(tree.apples.count).to be > originalCount
+    originalCount = @tree.apples.count
+    @tree.add_apples
+    expect(@tree.apples.count).to be > originalCount
+  end
+
+  it 'returns an apple when pick_an_apple!' do
+    @tree.add_apples
+    appleColors = [:red, :green, :yellow]
+    picked = @tree.pick_an_apple!
+    expect(appleColors.include? picked.color).to be_truthy
+  end
+
+  it 'has one less apple after picking an apple' do
+    @tree.add_apples
+    originalCount = @tree.apples.count
+    @tree.pick_an_apple!
+
+    expect(@tree.apples.count).to eq originalCount - 1
+  end
+
+  it 'raises an error when picking an apple when there are no apples' do
+    expect { @tree.pick_an_apple! }.to raise_error NoApplesError
   end
 
 end
